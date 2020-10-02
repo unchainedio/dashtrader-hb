@@ -1,0 +1,67 @@
+- name: Creating dash-usdt-binance hummingbot directory
+  file:
+    path: /root/dash-usdt-binance
+    state: directory
+
+- name: Download create.sh
+  get_url:
+    url: https://raw.githubusercontent.com/CoinAlpha/hummingbot/development/installation/docker-commands/create.sh
+    dest: /root/dash-usdt-binance
+    mode: a+x
+
+- name: Download start.sh
+  get_url:
+    url: https://raw.githubusercontent.com/CoinAlpha/hummingbot/development/installation/docker-commands/start.sh
+    dest: /root/dash-usdt-binance
+    mode: a+x
+
+- name: Download update.sh
+  get_url:
+    url: https://raw.githubusercontent.com/CoinAlpha/hummingbot/development/installation/docker-commands/update.sh
+    dest: /root/dash-usdt-binance
+    mode: a+x
+
+- name: Create dash_usdt_binance_files  directory if it does not exist
+  file:
+    path: /root/dash-usdt-binance/dash-usdt-binance_files/
+    state: directory
+    mode: '0755'
+
+- name: Create dash-usdt-binance_files/hummingbot_conf  directory if it does not exist
+  file:
+    path: /root/dash-usdt-binance/dash-usdt-binance_files/hummingbot_conf
+    state: directory
+    mode: a+rw
+
+- name: Create dash-usdt-binance_files/hummingbot_logs  directory if it does not exist
+  file:
+    path: /root/dash-usdt-binance/dash-usdt-binance_files/hummingbot_logs
+    state: directory
+    mode: '0755'
+
+- name: Create dash-usdt-binance_files/hummingbot_data  directory if it does no
+  file:
+    path: /root/dash-usdt-binance/dash-usdt-binance_files/hummingbot_data
+    state: directory
+    mode: '0755'
+
+    #- name: Create hummingbot_files/hummingbot_scripts  directory if it does no
+    #file:
+      # path: /root/dash-btc-binance/dash-btc-binance_files/hummingbot_scripts
+      #state: directory
+      #mode: '0755'
+
+- name: write dash-usdt-binance config files (global and strategy)
+  copy:
+    src: dash-usdt-binance/configs
+    dest: /root/dash-usdt-binance/dash-usdt-binance_files/hummingbot_conf #"{{ dashconf_file_path }}"
+    owner: root
+    #when: not dashconf_file.stat.exists
+    #
+- name: write dash-usdt-binance script directory/files
+  copy:
+    src: dash-usdt-binance/hummingbot_scripts
+    dest: /root/dash-usdt-binance/dash-usdt-binance_files
+    owner: root
+    #when: not dashconf_file.stat.exists
+

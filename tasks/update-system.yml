@@ -1,0 +1,24 @@
+- name: Update package cache
+  package: update_cache=yes cache_valid_time=3600
+
+- name: Upgrade to the latest packages
+  package: upgrade=safe
+
+- name: Install Tmux
+  package:
+    name: tmux
+    state: present
+
+- name: Install Docker
+  package:
+    name: docker.io
+    state: present
+
+- name: Start & Enable Docker
+  systemd:
+    state: started
+    name: docker
+    enabled: yes
+
+- name: Allow docker commands without requiring sudo prefix
+  shell: sudo usermod -a -G docker $USER

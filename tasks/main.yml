@@ -1,0 +1,17 @@
+---
+# tasks file for dash-hummingbot
+#
+
+- name: Update system and install Docker
+  block:
+    - import_tasks: update-system.yml
+
+- name: create dash trading bots on binance
+  block:
+    - import_tasks: create-dash-usdt-binance.yml
+    - import_tasks: create-dash-btc-binance.yml
+    - import_tasks: create-dash-eth-binance.yml
+    - import_tasks: create-dash-bnb-binance.yml
+  #become: yes
+  #when: not "OK" in dash_user_exist.stdout
+

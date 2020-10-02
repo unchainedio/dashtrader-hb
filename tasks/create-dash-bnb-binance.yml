@@ -1,0 +1,66 @@
+- name: Creates dash-bnb-binance directory
+  file:
+    path: /root/dash-bnb-binance
+    state: directory
+
+- name: Download create.sh
+  get_url:
+    url: https://raw.githubusercontent.com/CoinAlpha/hummingbot/development/installation/docker-commands/create.sh
+    dest: /root/dash-bnb-binance
+    mode: a+x
+
+- name: Download start.sh
+  get_url:
+    url: https://raw.githubusercontent.com/CoinAlpha/hummingbot/development/installation/docker-commands/start.sh
+    dest: /root/dash-bnb-binance
+    mode: a+x
+
+- name: Download update.sh
+  get_url:
+    url: https://raw.githubusercontent.com/CoinAlpha/hummingbot/development/installation/docker-commands/update.sh
+    dest: /root/dash-bnb-binance
+    mode: a+x
+
+- name: Create dash-bnb-binance_files  directory if it does not exist
+  file:
+    path: /root/dash-bnb-binance/dash-bnb-binance_files/
+    state: directory
+    mode: '0755'
+
+- name: Create dash-bnb-binance_files/hummingbot_conf  directory if it does no
+  file:
+    path: /root/dash-bnb-binance/dash-bnb-binance_files/hummingbot_conf
+    state: directory
+    mode: a+rw
+
+- name: Create dash-bnb-binance_files/hummingbot_logs  directory if it does no
+  file:
+    path: /root/dash-bnb-binance/dash-bnb-binance_files/hummingbot_logs
+    state: directory
+    mode: '0755'
+
+- name: Create dash-bnb-binance_files/hummingbot_data  directory if it does no
+  file:
+    path: /root/dash-bnb-binance/dash-bnb-binance_files/hummingbot_data
+    state: directory
+    mode: '0755'
+
+    #- name: Create dash-bnb-binance_files/hummingbot_scripts  directory if it does
+    #file:
+      #path: /root/dash-bnb-binance/dash-bnb-binance_files/hummingbot_scripts
+      #state: directory
+      #mode: '0755'
+
+- name: write dash-bnb-binance config files (global and strategy)
+  copy:
+    src: dash-bnb-binance/configs
+    dest: /root/dash-bnb-binance/dash-bnb-binance_files/hummingbot_conf #"{{ dash
+    owner: root
+    #when: not dashconf_file.stat.exists
+
+- name: write dash-bnb-binance script directory/files
+  copy:
+    src: dash-bnb-binance/hummingbot_scripts
+    dest: /root/dash-bnb-binance/dash-bnb-binance_files #"{{ dash
+    owner: root
+   #when: not dashconf_file.stat.exists
