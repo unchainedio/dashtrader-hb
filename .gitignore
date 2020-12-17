@@ -2,3 +2,4 @@ files/dash-bnb-binance/configs/conf_global.yml
 files/dash-btc-binance/configs/conf_global.yml
 files/dash-eth-binance/configs/conf_global.yml
 conf_global.yml
+encrypted*

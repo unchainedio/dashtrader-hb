@@ -1,0 +1,28 @@
+---    
+# ansible playbook create-users.yml    
+                                                                    
+- name: Create a new {{ hb }} user                                     
+  user:                                                           
+    name: "{{ hb }}"                                                    
+    state: present                                                
+    password: passwd1234                                          
+    shell: /bin/bash                                              
+                                                                    
+- name: Create {{ hbadmin }} User                                     
+  user:                                                           
+    name: "{{ hbadmin }}"                                               
+    state: present                                                
+    password: passwd1234                                          
+    shell: /bin/bash
+
+- name: Set authorized key for user {{ hbadmin }} copying it from current user
+  authorized_key:
+    user: "{{ hbadmin }}"
+    state: present
+    key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+       
+- name: Set authorized key for user {{ hb }} copying it from current user
+  authorized_key:
+    user: "{{ hb }}"
+    state: present
+    key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"

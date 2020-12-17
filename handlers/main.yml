@@ -1,2 +1,14 @@
 ---
-# handlers file for dash-hummingbot
+# handlers file for /etc/ansible/roles/deploy-dashmasternode
+#
+- name: Restart ssh
+  service: name=ssh state=restarted
+  remote_user: "{{ hbadmin }}"
+  become: yes
+
+
+- name: reboot
+  reboot:
+  remote_user: "{{ hbadmin }}"
+  become: yes
+

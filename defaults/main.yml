@@ -1,2 +1,11 @@
 ---
-# defaults file for dash-hummingbot
+# defaults file for /etc/ansible/roles/dashtrader-hb
+#
+
+# Users: users in the system, admin user to administer the system and dash_user to install dash
+hbadmin: hbadmin
+hb: hummingbot
+
+# Required packages to run and install hummingbot
+required_packages: [ufw, python, virtualenv, git, unzip, pv, speedtest-cli]
+  # become: yes

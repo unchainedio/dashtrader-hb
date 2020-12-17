@@ -14,6 +14,17 @@
     name: docker.io
     state: present
 
+- name: Install pip
+  package:
+    name: python3-pip
+    state: present
+
+    #- name: Install docker-py for ansible docker conatiner
+    #package:
+      #name: docker-py
+      #state: present
+
+
 - name: Start & Enable Docker
   systemd:
     state: started
@@ -21,4 +32,4 @@
     enabled: yes
 
 - name: Allow docker commands without requiring sudo prefix
-  shell: sudo usermod -a -G docker $USER
+  shell: sudo usermod -a -G docker {{ hbadmin }} #$USER

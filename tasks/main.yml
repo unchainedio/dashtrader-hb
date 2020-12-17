@@ -1,17 +1,46 @@
 ---
-# tasks file for dash-hummingbot
+# tasks file for dashtrader-hb
 #
 
-- name: Update system and install Docker
+
+# since we lock down root access to the machine, we check to see if we can ssh as hbadmin_user
+# if that fails that means this is the first time run, where the dash_user doesnt exist
+# and we then login as root.
+#
+- name: check {{ hbadmin }}  user, if not then u can login as root
+  command: ssh -q -o BatchMode=yes -o ConnectTimeout=3 {{ hbadmin }}@{{ inventory_hostname }} "echo OK"
+  delegate_to: 127.0.0.1
+  changed_when: false
+  failed_when: false
+  register: hbadmin_exist
+- debug: var=hbadmin_exist
+
+
+- name: create users logged in as root
   block:
-    - import_tasks: update-system.yml
+  - import_tasks: create_users.yml
+  - import_tasks: set_sudoer_permissions.yml
+  #- import_tasks: update_system.yml
+  become: yes
+  when: not "OK" in hbadmin_exist.stdout
+
+- name: Update system, install Docker and lock root ssh
+  block:
+  - import_tasks: update-system.yml
+  - import_tasks: disable_rootlogin.yml
+  remote_user: "{{ hbadmin }}"
+  become: yes
 
 - name: create dash trading bots on binance
   block:
-    - import_tasks: create-dash-usdt-binance.yml
-    - import_tasks: create-dash-btc-binance.yml
-    - import_tasks: create-dash-eth-binance.yml
-    - import_tasks: create-dash-bnb-binance.yml
+  - import_tasks: create-btc-usdt-binance.yml
+  - import_tasks: create-dash-usdt-binance.yml
+  - import_tasks: create-dash-btc-binance.yml
+  - import_tasks: create-dash-eth-binance.yml
+  - import_tasks: create-dash-bnb-binance.yml
+  remote_user: "{{ hbadmin }}"
   #become: yes
+
+    #become: yes
   #when: not "OK" in dash_user_exist.stdout
 
