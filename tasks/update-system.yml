@@ -1,8 +1,10 @@
 - name: Update package cache
   package: update_cache=yes cache_valid_time=3600
+  changed_when: False
 
 - name: Upgrade to the latest packages
   package: upgrade=safe
+  changed_when: False
 
 - name: Install Tmux
   package:
@@ -32,4 +34,4 @@
     enabled: yes
 
 - name: Allow docker commands without requiring sudo prefix
-  shell: sudo usermod -a -G docker {{ hbadmin }} #$USER
+  shell: sudo usermod -a -G docker {{ hb }} #$USER

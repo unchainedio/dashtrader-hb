@@ -3,7 +3,7 @@
   set_fact:
     sudoers:
       - "{{ hbadmin }}"
-      #      - "{{ dash_user }}"
+      - "{{ hb }}"
       
 
 - name: Make sure we have a 'wheel' group

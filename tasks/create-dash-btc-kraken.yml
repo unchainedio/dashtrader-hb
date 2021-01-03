@@ -1,0 +1,86 @@
+- name: Creating dash-btc-kraken hummingbot directory
+  file:
+    path: /home/{{ hb }}/dash-btc-kraken/
+    state: directory
+    owner: "{{ hb }}"
+
+- name: Download create.sh
+  get_url:
+    url: https://raw.githubusercontent.com/CoinAlpha/hummingbot/development/installation/docker-commands/create.sh
+    dest: /home/{{ hb }}/dash-btc-kraken
+    mode: a+x
+    owner: "{{ hb}}"
+
+- name: Download start.sh
+  get_url:
+    url: https://raw.githubusercontent.com/CoinAlpha/hummingbot/development/installation/docker-commands/start.sh
+    dest: /home/{{ hb }}/dash-btc-kraken
+    mode: a+x
+    owner: "{{ hb }}"
+
+- name: Download update.sh
+  get_url:
+    url: https://raw.githubusercontent.com/CoinAlpha/hummingbot/development/installation/docker-commands/update.sh
+    dest: /home/{{ hb }}/dash-btc-kraken
+    mode: a+x
+    owner: "{{ hb }}"
+
+    - name: Create dash-btc-krakene_files  directory if it does not exist
+  file:
+    path: /home/{{ hb }}/dash-btc-kraken/dash-btc-kraken_files/
+    state: directory
+    mode: '0755'
+    owner: "{{ hb }}"
+
+    #- name: Create dash-btc-kraken_files/hummingbot_conf  directory if it does not exist
+    #file:
+      #path: /home/{{ hb }}/dash-btc-kraken/dash-btc-kraken_files/hummingbot_conf
+      #state: directory
+      #mode: a+rw
+      #owner: "{{ hb }}"
+
+- name: Create dash-btc-kraken_files/hummingbot_logs  directory if it does not exist
+  file:
+    path: /home/{{ hb }}/dash-btc-kraken/dash-btc-kraken_files/hummingbot_logs
+    state: directory
+    mode: '0755'
+    owner: "{{ hb }}"
+
+- name: Create dash-btc-kraken_files/hummingbot_data  directory if it does no
+  file:
+    path: /home/{{ hb }}/dash-btc-kraken/dash-btc-kraken_files/hummingbot_data
+    state: directory
+    mode: '0755'
+    owner: "{{ hb }}"
+
+    #- name: Create hummingbot_files/hummingbot_scripts  directory if it does no
+    #file:
+      # path: /root/dash-btc-binance/dash-btc-binance_files/hummingbot_scripts
+      #state: directory
+      #mode: '0755'
+
+- synchronize:
+    src: dash-btc-kraken/configs/
+    dest: /home/{{ hb }}/dash-btc-kraken/dash-btc-kraken_files/hummingbot_conf/
+    # become_user: "{{ hb }}"
+- synchronize:
+    src: dash-btc-kraken/
+    dest: /home/{{ hb }}/dash-btc-kraken/dash-btc-kraken_files/
+    # become_user: "{{ hb }}"
+
+
+
+    #- name: write dash-btc-kraken config files (global and strategy)
+    #copy:
+      #src: dash-btc-kraken/configs
+      #dest: /home/{{ hb }}/dash-btc-kraken/dash-btc-kraken_files/hummingbot_conf #"{{ dashconf_file_path }}"
+      #owner: "{{ hb }}"
+    #when: not dashconf_file.stat.exists
+    #
+    #- name: write dash-btc-kraken script directory/files
+    #copy:
+      #src: dash-btc-kraken/hummingbot_scripts
+      #dest: /home/{{ hb }}/dash-btc-kraken/dash-btc-kraken_files
+      #owner: "{{ hb }}"
+    #when: not dashconf_file.stat.exists
+

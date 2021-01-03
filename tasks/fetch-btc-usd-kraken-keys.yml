@@ -1,0 +1,20 @@
+---
+
+- name: Fetch Kraken encrypted_default.json and store in /tmp/btc-usd-kraken/configs
+  fetch:
+    src: /home/{{ hb }}/btc-usd-kraken/btc-usd-kraken_files/hummingbot_conf/encrypted_default.json
+    dest: /tmp//btc-usd-kraken/configs/
+    flat: yes
+    
+- name: Fetch Kraken encrypted_kraken_api_key.json and store in /tmp/btc-usd-kraken/configs
+  fetch:
+    src: /home/{{ hb }}/btc-usd-kraken/btc-usd-kraken_files/hummingbot_conf/encrypted_kraken_api_key.json
+    dest: /tmp//btc-usd-kraken/configs/
+    flat: yes
+    
+- name: Fetch Kraken encrypted_kraken_secret_key.json and store in /tmp/btc-usd-kraken/configs
+  fetch:
+    src: /home/{{ hb }}/btc-usd-kraken/btc-usd-kraken_files/hummingbot_conf/encrypted_kraken_secret_key.json
+    dest: /tmp//btc-usd-kraken/configs/
+    flat: yes
+
