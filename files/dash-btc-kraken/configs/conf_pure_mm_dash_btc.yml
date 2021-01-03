@@ -6,7 +6,7 @@ template_version: 17
 strategy: pure_market_making
 
 # Exchange and token parameters.
-exchange: binance
+exchange: kraken
 
 # Token trading pair for the exchange, e.g. BTC-USDT
 market: DASH-BTC

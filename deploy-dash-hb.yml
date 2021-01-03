@@ -1,6 +1,0 @@
----
-- hosts: dashtrader-hb
-  #become: true
-  gather_facts: no
-  roles:
-    - dashtrader-hb
