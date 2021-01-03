@@ -25,7 +25,7 @@
     mode: a+x
     owner: "{{ hb }}"
 
-    - name: Create dash-btc-krakene_files  directory if it does not exist
+- name: Create dash-btc-kraken_files  directory if it does not exist
   file:
     path: /home/{{ hb }}/dash-btc-kraken/dash-btc-kraken_files/
     state: directory

@@ -33,8 +33,9 @@
 
 - name: create dash trading bots on binance
   block:
-  - import_tasks: create-btc-usd-kraken.yml  
+  - import_tasks: create-btc-usd-kraken.yml
   - import_tasks: fetch-btc-usd-kraken-keys.yml
+  - import_tasks: create-dash-btc-kraken.yml
   - import_tasks: create-btc-usdt-binance.yml
   - import_tasks: create-dash-usdt-binance.yml
   - import_tasks: create-dash-btc-binance.yml
